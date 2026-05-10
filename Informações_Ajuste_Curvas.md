@@ -17,19 +17,19 @@ Os ajustes empíricos foram realizados tomando como base os dados experimentais 
 ### 1. Taxa de Desenvolvimento (Estágios Imaturos)
 A taxa de desenvolvimento absoluta, definida como $R(T) = 1/\tau$, foi ajustada utilizando o modelo termobiológico não-linear de **Brière-1**. Este modelo captura a assimetria biológica do desenvolvimento de ectotérmicos:
 
-$$R(T) = a T (T - T_{min}) \sqrt{T_{max} - T}$$
+$$R(T) = \gamma T (T - T_{min}) \sqrt{T_{max} - T}$$
 
 Para temperaturas fora do intervalo biologicamente viável ($T \leq T_{min}$ ou $T \geq T_{max}$), assume-se $R(T) = 0$.
 
 ### 2. Taxa de Mortalidade (Estágios Imaturos)
 A mortalidade dependente da temperatura para os Estágios 1 (ovos a L3) e 2 (L4 a pupa) foi descrita por uma equação polinomial de segundo grau (parábola com concavidade voltada para cima, refletindo o estresse térmico em extremos):
 
-$$d(T) = a_i T^2 + b_i T + c_i$$
+$$d(T) = a_{i} T^2 + b_{i} T + c_{i}$$
 
 ### 3. Taxa de Mortalidade com Senescência (Adultos)
 A mortalidade na fase adulta (Estágio 3) requer a integração do fator térmico com o desgaste fisiológico natural (idade, $a$). A função implementada garante que a mortalidade tenda ao infinito quando o inseto se aproxima da sua longevidade máxima assumida ($A_3$):
 
-$$\mu_3(a, T) = (a_3 T^2 + b_3 T + c_3) \cdot d_3 \frac{a}{(A_3 - a)^2}$$
+$$\mu_3(a, T) = (a_{3} T^2 + b_{3} T + c_{3}) \cdot d_{3} \frac{a}{(A_{3} - a)^2}$$
 
 Onde $d_3$ é o parâmetro escalar de senescência ajustado iterativamente via rotinas de otimização.
 
