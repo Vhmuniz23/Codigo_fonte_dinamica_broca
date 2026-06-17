@@ -244,8 +244,8 @@ disp('Iniciando simulações de todos os cenários climáticos (ODE15s)...');
 
    T_averages_test = [12, 16, 20, 24, 28, 32, 36, 40]; % Malha de Temperaturas Médias Anuais
    amplitudes_test = [0, 3, 6, 9];         % Malha de Amplitudes Sazonais (Flutuação)
-   time_simulation = [0 270];             % Janela de integração (t0 a tf)[Cenários: 180d(6m), 270d(9m), 1185d(3a3m), 1275d(3a6m), 1640d(4a6m)]
-day_start_analysis = 60;                  % Início do período para extrair picos (ignora transiente)[Cenários: 60d, 180d]
+   time_simulation = [0 1275];             % Janela de integração (t0 a tf)[Cenários: 180d(6m), 270d(9m), 1185d(3a3m), 1275d(3a6m), 1640d(4a6m)]
+day_start_analysis = 180;                  % Início do período para extrair picos (ignora transiente)[Cenários: 60d, 180d]
   day_end_analysis = time_simulation(2);   % Fim do período para extrair picos [Cenários: 180d, 270d, 1185d, 1275d, 1640d]
 
 % Criação do espaço de combinações (Grid paramétrica)
@@ -353,7 +353,7 @@ end
 % =========================================================================
 % A partir deste ponto, o código foca na dinâmica temporal de um ÚNICO cenário.
 % => DEFINIÇÃO DO CENÁRIO ESCOLHIDO PARA PLOTAR (DEVE EXISTIR NA VARREDURA):
-  T_chosen = 32;   
+  T_chosen = 24;   
 Amp_chosen = 0;
 
 disp(['Extraindo e plotando dados completos para T = ' num2str(T_chosen) '°C e Amp = ' num2str(Amp_chosen) '°C...']);
@@ -523,7 +523,7 @@ for i = 1:3
        plot(t, totals{i}, 'Color', colors(i,:), 'LineWidth', 2);
        title([titles_f9{1} ' ' str_temp]); 
        set_ax(x_lbls_f9, 'Nº Total de Indivíduos', [min(t), max(t)]); 
-       xticks(unique([min(t):25:max(t), max(t)]));
+       xticks(unique([min(t):100:max(t), max(t)]));
        xtickangle(45);
        grid on;
     else
@@ -531,7 +531,7 @@ for i = 1:3
         plot(t, totals{i}, 'Color', colors(i,:), 'LineWidth', 2);
         title(titles_f9{2});
         set_ax(x_lbls_f9, 'Nº Total de Indivíduos', [min(t), max(t)]);
-        xticks(unique([min(t):25:max(t), max(t)]));
+        xticks(unique([min(t):100:max(t), max(t)]));
         xtickangle(45);
         grid on;
         yyaxis right;
@@ -569,7 +569,7 @@ set(gcf, 'Name', 'Monitoramento Climático (Sazonalidade Térmica)');
 plot(t, temp_t_C, 'Color', color_temp, 'LineWidth', 2.0); 
 title('Sazonalidade Térmica Cossenoidal T(t)'); 
 set_ax('Tempo Cronológico (Dias)', 'Temperatura (°C)', [min(t) max(t)]);  
-xticks(unique([min(t):25:max(t), max(t)]));
+xticks(unique([min(t):100:max(t), max(t)]));
 xtickangle(45);
 yline(p.T_media_C, '--k');
 
@@ -587,7 +587,7 @@ for i = 1:2
        plot(t, y_vals_f14{i}, 'Color', c_vals(i,:), 'LineStyle', '-', 'LineWidth', 2);
        title([titles_f14{i} str_temp]); 
        set_ax(x_lbls_f14{i}, y_lbls_f14{i}, [min(t) max(t)]);
-       xticks(unique([min(t):25:max(t), max(t)])); 
+       xticks(unique([min(t):100:max(t), max(t)])); 
        xtickangle(45);
        grid on;
     else 
@@ -595,7 +595,7 @@ for i = 1:2
        plot(t, y_vals_f14{i}, 'Color', c_vals(i,:), 'LineStyle', '-', 'LineWidth', 2);
        title(titles_f14{i});
        set_ax(x_lbls_f14{i}, y_lbls_f14{i}, [min(t) max(t)]);
-       xticks(unique([min(t):25:max(t), max(t)]));
+       xticks(unique([min(t):100:max(t), max(t)]));
        xtickangle(45); 
        grid on;
        yyaxis right; 
@@ -616,7 +616,7 @@ if is_temp_const
     title(['Oviposição Máxima Diária (Fecundidade)' str_temp]); 
     legend('\beta(T) sem Comp.', 'B(T,N_3) com Comp.', 'Location', 'north','Orientation','horizontal');
     set_ax('Tempo Cronológico (Dias)', '\beta_{max} (Ovos/Fêmea/Dia)', [min(t) max(t)]);
-    xticks(unique([min(t):25:max(t), max(t)]));
+    xticks(unique([min(t):100:max(t), max(t)]));
     xtickangle(45);
     ylim([0 max(y_vals_f15{1}) * 1.1]);
     grid on;
@@ -629,7 +629,7 @@ else
      hold off; 
      title('Oviposição Máxima Diária (Fecundidade)'); 
      set_ax('Tempo Cronológico (Dias)', '\beta_{max} (Ovos/Fêmea/Dia)', [min(t) max(t)]);
-     xticks(unique([min(t):25:max(t), max(t)]));
+     xticks(unique([min(t):100:max(t), max(t)]));
      ylim([0 max(y_vals_f15{1}) * 1.1]);
      xtickangle(45);
      yyaxis right; 
@@ -672,7 +672,7 @@ for i = 1:4
             title([titles_f16{i} str_temp]);
             legend('\mu_1(T)', '\mu_2(T)', 'Location', 'north', 'Orientation','horizontal'); 
             set_ax(x_lbls_f16, y_lbls_f16{i}, [min(t) max(t)]);
-            xticks(unique([min(t):25:max(t), max(t)])); 
+            xticks(unique([min(t):100:max(t), max(t)])); 
             xtickangle(45);
             ylim([0 limite_y]);    
             box on; 
@@ -680,7 +680,7 @@ for i = 1:4
             plot(t, y_vals_f16{i}, 'Color', colors(i+1,:), 'LineWidth', 2); 
             title([titles_f16{i} str_temp]);
             set_ax(x_lbls_f16, y_lbls_f16{i}, [min(t) max(t)]);
-            xticks(unique([min(t):25:max(t), max(t)]));
+            xticks(unique([min(t):100:max(t), max(t)]));
             xtickangle(45);
             ylim([0 limite_y]);
             box on; 
@@ -694,14 +694,14 @@ for i = 1:4
             plot(t, y_vals_f16{i}(:,2), 'Color', colors(2,:), 'LineStyle', '-', 'LineWidth', 2);
             title(titles_f16{i});
             set_ax(x_lbls_f16, y_lbls_f16{i}, [min(t) max(t)]);
-            xticks(unique([min(t):25:max(t), max(t)]));
+            xticks(unique([min(t):100:max(t), max(t)]));
             xtickangle(45);
             ylim([0 limite_y]);
         else
             plot(t, y_vals_f16{i}, 'Color', colors(i+1,:), 'LineWidth', 2);
             title(titles_f16{i});
             set_ax(x_lbls_f16, y_lbls_f16{i}, [min(t) max(t)]);
-            xticks(unique([min(t):25:max(t), max(t)]));
+            xticks(unique([min(t):100:max(t), max(t)]));
             xtickangle(45);
             ylim([0 limite_y]);
         end      
